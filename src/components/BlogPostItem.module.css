@@ -1,0 +1,59 @@
+/* src/components/BlogPostItem.module.css */
+
+.blogPostItem {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  padding: 20px;
+  border-radius: 4px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.titleLink {
+  text-decoration: none;
+  color: #333333;
+}
+
+.titleLink:hover .title,
+.titleLink:focus .title {
+  color: #007bff;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333333;
+  margin: 0 0 8px;
+}
+
+.summary {
+  font-size: 16px;
+  color: #666666;
+  margin: 0 0 8px;
+}
+
+.date {
+  font-size: 14px;
+  color: #999999;
+  margin: 0;
+}
+
+/* Mobile-specific typography adjustments */
+@media (max-width: 768px) {
+  .blogPostItem {
+    padding: 15px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .summary {
+    font-size: 14px;
+  }
+
+  .date {
+    font-size: 12px;
+  }
+}
