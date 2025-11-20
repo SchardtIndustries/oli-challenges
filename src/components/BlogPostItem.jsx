@@ -1,4 +1,3 @@
-// src/components/BlogPostItem.jsx
 import { Link } from "react-router-dom";
 import styles from "./BlogPostItem.module.css";
 

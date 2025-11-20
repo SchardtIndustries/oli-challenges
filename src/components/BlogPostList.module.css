@@ -1,4 +1,4 @@
-/* src/components/BlogPostList.module.css */
+
 
 .blogPostList {
   display: grid;
@@ -8,7 +8,6 @@
   box-sizing: border-box;
 }
 
-/* Empty state */
 .emptyState {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
@@ -17,7 +16,6 @@
   text-align: center;
 }
 
-/* Tablet: two columns */
 @media (min-width: 769px) and (max-width: 1199px) {
   .blogPostList {
     grid-template-columns: repeat(2, minmax(300px, 1fr));
@@ -25,7 +23,6 @@
   }
 }
 
-/* Desktop: three columns */
 @media (min-width: 1200px) {
   .blogPostList {
     grid-template-columns: repeat(3, minmax(300px, 1fr));

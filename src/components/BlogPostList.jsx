@@ -1,4 +1,3 @@
-// src/components/BlogPostList.jsx
 import BlogPostItem from "./BlogPostItem.jsx";
 import styles from "./BlogPostList.module.css";
 
