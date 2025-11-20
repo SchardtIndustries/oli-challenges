@@ -1,5 +1,3 @@
-/* src/App.css */
-
 .appContainer {
   min-height: 100vh;
   padding: 20px;
@@ -70,5 +68,76 @@
 
   .postDetail {
     padding: 15px;
+  }
+}
+
+/* Primary action buttons (New Post, Edit Post, etc.) */
+.primaryButton {
+  display: inline-block;
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.primaryButton:hover {
+  background-color: #0069d9;
+}
+
+.primaryButton:focus-visible {
+  outline: 2px solid #004c99;
+  outline-offset: 2px;
+}
+
+.primaryButton:active {
+  background-color: #005dc1;
+}
+
+/* Make button full-width on small screens (matches Form spec) */
+@media (max-width: 768px) {
+  .primaryButton {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  height: 40px; /* ensures perfect alignment with primary button */
+}
+
+.secondaryButton:hover {
+  background-color: #f3f3f3;
+}
+
+.secondaryButton:active {
+  background-color: #e7e7e7;
+}
+
+.secondaryButton:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* full width on mobile */
+@media (max-width: 768px) {
+  .secondaryButton {
+    width: 100%;
   }
 }
