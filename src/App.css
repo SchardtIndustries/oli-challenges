@@ -8,6 +8,7 @@
 .appHeader {
   max-width: 1200px;
   margin: 0 auto 20px;
+  text-align: center;
 }
 
 .appTitle {

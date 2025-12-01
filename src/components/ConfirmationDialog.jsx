@@ -11,7 +11,6 @@ const ConfirmationDialog = ({
   const firstButtonRef = useRef(null);
   const lastButtonRef = useRef(null);
 
-  // Move focus into the dialog when it opens
   useEffect(() => {
     if (isOpen && dialogRef.current) {
       dialogRef.current.focus();
@@ -27,7 +26,6 @@ const ConfirmationDialog = ({
       }
 
       if (event.key === "Tab") {
-        // Simple focus trap between first and last focusable elements
         const focusable = [firstButtonRef.current, lastButtonRef.current].filter(
           Boolean
         );
@@ -44,7 +42,6 @@ const ConfirmationDialog = ({
         }
 
         if (currentIndex === -1) {
-          // If focus isn't inside yet, move it to the first
           focusable[0].focus();
         } else {
           focusable[nextIndex].focus();
