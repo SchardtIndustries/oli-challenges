@@ -1,8 +1,12 @@
-// src/components/BlogPostDetail.js
-import React from 'react';
-import styles from './BlogPostDetail.module.css';
+// src/components/BlogPostDetail.jsx
+import React, { useState } from "react";
+import styles from "./BlogPostDetail.module.css";
+import DeleteButton from "./DeleteButton";
+import ConfirmationDialog from "./ConfirmationDialog";
 
-const BlogPostDetail = ({ title, content, author, date }) => {
+const BlogPostDetail = ({ title, content, author, date, onDelete }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   // If any essential piece of data is missing, show the "not found" message.
   if (!title || !content || !author || !date) {
     return <p>Blog post not found.</p>;
@@ -11,11 +15,26 @@ const BlogPostDetail = ({ title, content, author, date }) => {
   // Normalize the date: accept either a Date object or an ISO string.
   const dateValue = date instanceof Date ? date : new Date(date);
 
-  const formattedDate = dateValue.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
+  const formattedDate = dateValue.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
   });
+
+  const handleDeleteClick = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleConfirmDelete = () => {
+    if (onDelete) {
+      onDelete();
+    }
+    setIsDialogOpen(false);
+  };
 
   return (
     <article className={styles.blogPostDetail}>
@@ -25,13 +44,22 @@ const BlogPostDetail = ({ title, content, author, date }) => {
         <p className={styles.date}>Published on {formattedDate}</p>
       </header>
 
-      {/* 
-        Use dangerouslySetInnerHTML to render the content as HTML.
-        This is a security risk, so be careful when using it.
-      */}
+      {/* Render the content as HTML */}
       <section
         className={styles.content}
         dangerouslySetInnerHTML={{ __html: content }}
+      />
+
+      {/* Actions row (delete button) */}
+      <div className={styles.actions}>
+        <DeleteButton onClick={handleDeleteClick} />
+      </div>
+
+      {/* Confirmation dialog for deletion */}
+      <ConfirmationDialog
+        isOpen={isDialogOpen}
+        onClose={handleCloseDialog}
+        onConfirm={handleConfirmDelete}
       />
     </article>
   );

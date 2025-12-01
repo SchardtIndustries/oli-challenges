@@ -96,9 +96,16 @@ function HomePage({ posts }) {
   );
 }
 
-function PostDetailPage({ posts }) {
+function PostDetailPage({ posts, onDeletePost }) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const post = posts.find((p) => String(p.id) === String(id));
+
+  const handleDelete = () => {
+    if (!post) return;
+    onDeletePost(id);
+    navigate("/");
+  };
 
   return (
     <main className="appContainer">
@@ -123,6 +130,7 @@ function PostDetailPage({ posts }) {
         content={post?.content}
         author={post?.author}
         date={post?.date}
+        onDelete={handleDelete}
       />
     </main>
   );
@@ -159,11 +167,7 @@ function NewPostPage({ onCreate }) {
           flexWrap: "wrap",
         }}
       >
-        <button
-          type="submit"
-          form="blogPostForm"
-          className="primaryButton"
-        >
+        <button type="submit" form="blogPostForm" className="primaryButton">
           Create Post
         </button>
 
@@ -224,11 +228,7 @@ function EditPostPage({ posts, onUpdate }) {
           flexWrap: "wrap",
         }}
       >
-        <button
-          type="submit"
-          form="blogPostForm"
-          className="primaryButton"
-        >
+        <button type="submit" form="blogPostForm" className="primaryButton">
           Save Changes
         </button>
 
@@ -283,6 +283,12 @@ export default function App() {
     return id;
   };
 
+  const handleDeletePost = (id) => {
+    setPosts((prev) =>
+      prev.filter((post) => String(post.id) !== String(id))
+    );
+  };
+
   return (
     <Routes>
       <Route path="/" element={<HomePage posts={posts} />} />
@@ -292,7 +298,9 @@ export default function App() {
       />
       <Route
         path="/posts/:id"
-        element={<PostDetailPage posts={posts} />}
+        element={
+          <PostDetailPage posts={posts} onDeletePost={handleDeletePost} />
+        }
       />
       <Route
         path="/posts/:id/edit"
