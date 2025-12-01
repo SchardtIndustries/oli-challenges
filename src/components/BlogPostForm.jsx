@@ -65,12 +65,10 @@ function BlogPostForm({ post, onSubmit }) {
         {isEditMode ? "Edit Blog Post" : "Create New Blog Post"}
       </h2>
 
-      {/* SR-only live region to announce validation errors */}
       <div className={styles.visuallyHidden} aria-live="polite">
         {errorMessages.length > 0 ? errorMessages.join(". ") : ""}
       </div>
 
-      {/* Title */}
       <div className={styles.formRow}>
         <label className={styles.label} htmlFor="title">
           Title
@@ -93,7 +91,6 @@ function BlogPostForm({ post, onSubmit }) {
         </div>
       </div>
 
-      {/* Content */}
       <div className={styles.formRow}>
         <label className={styles.label} htmlFor="content">
           Content
@@ -116,7 +113,6 @@ function BlogPostForm({ post, onSubmit }) {
         </div>
       </div>
 
-      {/* Author */}
       <div className={styles.formRow}>
         <label className={styles.label} htmlFor="author">
           Author
@@ -139,7 +135,6 @@ function BlogPostForm({ post, onSubmit }) {
         </div>
       </div>
 
-      {/* Publication Date */}
       <div className={styles.formRow}>
         <label className={styles.label} htmlFor="date">
           Publication Date
@@ -162,7 +157,6 @@ function BlogPostForm({ post, onSubmit }) {
         </div>
       </div>
 
-      {/* Original submit button (still useful, especially for tests / accessibility) */}
       <div className={styles.actions}>
         <button
           type="submit"

@@ -11,6 +11,7 @@ import {
 import BlogPostList from "./components/BlogPostList.jsx";
 import BlogPostDetail from "./components/BlogPostDetail.jsx";
 import BlogPostForm from "./components/BlogPostForm.jsx";
+import Layout from "./components/Layout.jsx";
 import "./App.css";
 
 const initialPosts = [
@@ -76,7 +77,7 @@ const initialPosts = [
 // Helper to create a summary from content
 function makeSummary(content) {
   if (!content) return "";
-  const plain = content.replace(/<[^>]+>/g, ""); // strip HTML tags if any
+  const plain = content.replace(/<[^>]+>/g, "");
   return plain.length > 140 ? `${plain.slice(0, 140)}…` : plain;
 }
 
@@ -85,11 +86,6 @@ function HomePage({ posts }) {
     <main className="appContainer">
       <header className="appHeader">
         <h1 className="appTitle">Blog Posts</h1>
-        <p>
-          <Link to="/posts/new" className="primaryButton">
-            + New Post
-          </Link>
-        </p>
       </header>
       <BlogPostList posts={posts} />
     </main>
@@ -157,7 +153,6 @@ function NewPostPage({ onCreate }) {
 
       <BlogPostForm onSubmit={handleSubmit} />
 
-      {/* Action bar under the form */}
       <div
         style={{
           maxWidth: "800px",
@@ -218,7 +213,6 @@ function EditPostPage({ posts, onUpdate }) {
 
       <BlogPostForm post={post} onSubmit={handleSubmit} />
 
-      {/* Action bar under the form */}
       <div
         style={{
           maxWidth: "800px",
@@ -290,24 +284,29 @@ export default function App() {
   };
 
   return (
-    <Routes>
-      <Route path="/" element={<HomePage posts={posts} />} />
-      <Route
-        path="/posts/new"
-        element={<NewPostPage onCreate={handleCreatePost} />}
-      />
-      <Route
-        path="/posts/:id"
-        element={
-          <PostDetailPage posts={posts} onDeletePost={handleDeletePost} />
-        }
-      />
-      <Route
-        path="/posts/:id/edit"
-        element={
-          <EditPostPage posts={posts} onUpdate={handleUpdatePost} />
-        }
-      />
-    </Routes>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage posts={posts} />} />
+        <Route
+          path="/posts/new"
+          element={<NewPostPage onCreate={handleCreatePost} />}
+        />
+        <Route
+          path="/posts/:id"
+          element={
+            <PostDetailPage
+              posts={posts}
+              onDeletePost={handleDeletePost}
+            />
+          }
+        />
+        <Route
+          path="/posts/:id/edit"
+          element={
+            <EditPostPage posts={posts} onUpdate={handleUpdatePost} />
+          }
+        />
+      </Routes>
+    </Layout>
   );
 }
