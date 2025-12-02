@@ -12,6 +12,11 @@ import BlogPostList from "./components/BlogPostList.jsx";
 import BlogPostDetail from "./components/BlogPostDetail.jsx";
 import BlogPostForm from "./components/BlogPostForm.jsx";
 import Layout from "./components/Layout.jsx";
+
+// NEW: comment components
+import CommentList from "./components/comments/CommentList.jsx";
+import CommentForm from "./components/comments/CommentForm.jsx";
+
 import "./App.css";
 
 const initialPosts = [
@@ -92,7 +97,7 @@ function HomePage({ posts }) {
   );
 }
 
-function PostDetailPage({ posts, onDeletePost }) {
+function PostDetailPage({ posts, onDeletePost, commentsByPostId, onAddComment }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const post = posts.find((p) => String(p.id) === String(id));
@@ -103,34 +108,63 @@ function PostDetailPage({ posts, onDeletePost }) {
     navigate("/");
   };
 
+  const postComments = commentsByPostId[id] || [];
+
   return (
     <main className="appContainer">
       <header className="appHeader">
         <h1 className="appTitle">Blog Post</h1>
-        <p>
+
+        {/* Back link left-aligned inside the centered header container */}
+        <div className="appHeaderBackRow">
           <Link to="/" className="backLink">
             ← Back to blog posts
           </Link>
-        </p>
-        {post && (
-          <p>
-            <Link to={`/posts/${post.id}/edit`} className="primaryButton">
-              Edit Post
-            </Link>
-          </p>
-        )}
+        </div>
       </header>
 
+      {/* Post card (includes Edit button inside) */}
       <BlogPostDetail
         title={post?.title}
         content={post?.content}
         author={post?.author}
         date={post?.date}
-        onDelete={handleDelete}
+        editUrl={post ? `/posts/${post.id}/edit` : undefined}
       />
+
+      {/* Full-width delete button below the card */}
+      {post && (
+        <div className="deletePostWrapper">
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="dangerButton deletePostButton"
+          >
+            Delete Post
+          </button>
+        </div>
+      )}
+
+      {/* Comments section */}
+      {post && (
+        <section
+          className="commentsSection"
+          aria-label="Comments"
+          style={{ maxWidth: "800px", margin: "24px auto 0" }}
+        >
+          <h2 className="commentsTitle">Comments</h2>
+          <CommentList comments={postComments} />
+          <CommentForm
+            onSubmit={(commentData) => onAddComment(id, commentData)}
+            isLoggedIn={false}
+            userName=""
+          />
+        </section>
+      )}
     </main>
   );
 }
+
 
 function NewPostPage({ onCreate }) {
   const navigate = useNavigate();
@@ -237,6 +271,9 @@ function EditPostPage({ posts, onUpdate }) {
 export default function App() {
   const [posts, setPosts] = useState(initialPosts);
 
+  // commentsByPostId: { [postId]: Comment[] }
+  const [commentsByPostId, setCommentsByPostId] = useState({});
+
   const handleCreatePost = (data) => {
     const id = String(Date.now());
     const summary = makeSummary(data.content);
@@ -281,6 +318,33 @@ export default function App() {
     setPosts((prev) =>
       prev.filter((post) => String(post.id) !== String(id))
     );
+
+    // Optionally also remove comments for that post
+    setCommentsByPostId((prev) => {
+      const next = { ...prev };
+      delete next[id];
+      return next;
+    });
+  };
+
+  const handleAddComment = (postId, data) => {
+    const commentId = String(Date.now());
+
+    const newComment = {
+      id: commentId,
+      name: data.name,
+      text: data.text,
+      date: data.date ?? new Date().toISOString(),
+      avatar: data.avatar ?? null,
+    };
+
+    setCommentsByPostId((prev) => {
+      const existing = prev[postId] || [];
+      return {
+        ...prev,
+        [postId]: [...existing, newComment],
+      };
+    });
   };
 
   return (
@@ -297,6 +361,8 @@ export default function App() {
             <PostDetailPage
               posts={posts}
               onDeletePost={handleDeletePost}
+              commentsByPostId={commentsByPostId}
+              onAddComment={handleAddComment}
             />
           }
         />

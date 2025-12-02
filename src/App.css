@@ -20,7 +20,7 @@
   margin: 0;
 }
 
-/* Detail page styling */
+
 .postDetail {
   max-width: 800px;
   margin: 0 auto;
@@ -57,7 +57,6 @@
   text-decoration: underline;
 }
 
-/* Simple mobile spacing tweak */
 @media (max-width: 768px) {
   .appContainer {
     padding: 15px;
@@ -72,7 +71,6 @@
   }
 }
 
-/* Primary action buttons (New Post, Edit Post, etc.) */
 .primaryButton {
   display: inline-block;
   background-color: #007bff;
@@ -99,7 +97,6 @@
   background-color: #005dc1;
 }
 
-/* Make button full-width on small screens (matches Form spec) */
 @media (max-width: 768px) {
   .primaryButton {
     width: 100%;
@@ -120,7 +117,7 @@
   border-radius: 4px;
   text-decoration: none;
   cursor: pointer;
-  height: 40px; /* ensures perfect alignment with primary button */
+  height: 40px;
 }
 
 .secondaryButton:hover {
@@ -136,9 +133,51 @@
   outline-offset: 2px;
 }
 
-/* full width on mobile */
+
 @media (max-width: 768px) {
   .secondaryButton {
     width: 100%;
   }
+}
+
+
+.appHeaderBackRow {
+  margin-top: 8px;
+  text-align: left;
+}
+
+.deletePostWrapper {
+  max-width: 800px;
+  margin: 16px auto 0;
+}
+
+
+.dangerButton {
+  display: inline-block;
+  background-color: #dc3545;
+  color: #ffffff;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.dangerButton:hover {
+  background-color: #c82333;
+}
+
+.dangerButton:active {
+  background-color: #bd2130;
+}
+
+.dangerButton:focus-visible {
+  outline: 2px solid #7a1220;
+  outline-offset: 2px;
+}
+
+.deletePostButton {
+  width: 100%;
+  text-align: center;
 }
